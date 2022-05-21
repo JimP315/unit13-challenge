@@ -1,0 +1,220 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0",
+    "importType": "LEX",
+    "importFormat": "JSON"
+  },
+  "resource": {
+    "name": "RoboAdviser",
+    "version": "5",
+    "intents": [
+      {
+        "rejectionStatement": {
+          "messages": [
+            {
+              "contentType": "PlainText",
+              "content": "I will be pleased to assist you in the future."
+            }
+          ]
+        },
+        "name": "RecommendPortfolio",
+        "version": "37",
+        "fulfillmentActivity": {
+          "codeHook": {
+            "uri": "arn:aws:lambda:ap-southeast-2:443351395398:function:recommendPortfolio",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "I want to save money for my retirement",
+          "I'm {age} and I would like to invest for my retirement",
+          "I'm {age} and I want to invest for my retirement",
+          "I want the best option to invest for my retirement",
+          "I'm worried about my retirement",
+          "I want to invest for my retirement",
+          "I would like to invest for my retirement",
+          "I'd like to plan for my retirement"
+        ],
+        "slots": [
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.NUMBER",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "May I be so bold to ask your age?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 2,
+            "name": "age"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.FirstName",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Thank you for trusting me to help, could you please give me your name?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "name": "firstName"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.NUMBER",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "How much do you want to invest?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 3,
+            "name": "investmentAmount"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "riskLevel",
+            "slotTypeVersion": "6",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What level of risk are you willing to accept"
+                }
+              ],
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"\",\"subTitle\":\"Fearful\",\"title\":\"None\",\"buttons\":[{\"text\":\"None\",\"value\":\"None\"}]},{\"imageUrl\":\"\",\"subTitle\":\"A little bit\",\"title\":\"Very Low or Low\",\"buttons\":[{\"text\":\"Very Low\",\"value\":\"Very Low\"},{\"text\":\"Low\",\"value\":\"Low\"}]},{\"imageUrl\":\"\",\"subTitle\":\"some\",\"title\":\"Medium\",\"buttons\":[{\"text\":\"Medium\",\"value\":\"Medium\"}]},{\"imageUrl\":\"\",\"subTitle\":\"Blow it up \",\"title\":\"High or Very High\",\"buttons\":[{\"text\":\"High\",\"value\":\"High\"},{\"text\":\"Very High\",\"value\":\"Very High\"}]}]}",
+              "maxAttempts": 2
+            },
+            "priority": 4,
+            "defaultValueSpec": {
+              "defaultValueList": []
+            },
+            "name": "riskLevel"
+          }
+        ],
+        "followUpPrompt": {
+          "prompt": {
+            "messages": [
+              {
+                "groupNumber": 1,
+                "contentType": "PlainText",
+                "content": "Thanks for visiting our site today."
+              }
+            ],
+            "maxAttempts": 3
+          },
+          "rejectionStatement": {
+            "messages": [
+              {
+                "groupNumber": 1,
+                "contentType": "PlainText",
+                "content": "Ok, good freakin luck"
+              }
+            ]
+          }
+        },
+        "confirmationPrompt": {
+          "messages": [
+            {
+              "contentType": "PlainText",
+              "content": "Would you like me to search for the best investment portfolio for you now?"
+            }
+          ],
+          "maxAttempts": 3
+        },
+        "dialogCodeHook": {
+          "uri": "arn:aws:lambda:ap-southeast-2:443351395398:function:recommendPortfolio:1",
+          "messageVersion": "1.0"
+        }
+      }
+    ],
+    "slotTypes": [
+      {
+        "name": "riskLevel",
+        "version": "6",
+        "enumerationValues": [
+          {
+            "value": "High",
+            "synonyms": [
+              "pumping"
+            ]
+          },
+          {
+            "value": "Very Low",
+            "synonyms": [
+              "bit"
+            ]
+          },
+          {
+            "value": "Low",
+            "synonyms": [
+              "some"
+            ]
+          },
+          {
+            "value": "Medium",
+            "synonyms": [
+              "exciting"
+            ]
+          },
+          {
+            "value": "Very High",
+            "synonyms": [
+              "crazy"
+            ]
+          },
+          {
+            "value": "None",
+            "synonyms": [
+              "None"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      }
+    ],
+    "voiceId": "Nicole",
+    "childDirected": false,
+    "locale": "en-AU",
+    "idleSessionTTLInSeconds": 300,
+    "clarificationPrompt": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, can you please repeat that?"
+        }
+      ],
+      "maxAttempts": 5
+    },
+    "abortStatement": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, I could not understand. Goodbye."
+        }
+      ]
+    },
+    "detectSentiment": false,
+    "nluIntentConfidenceThreshold": 0.4,
+    "enableModelImprovements": true
+  }
+}
